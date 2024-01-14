@@ -16,17 +16,17 @@ import java.util.Set;
 @NoArgsConstructor
 public class course {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "Title", nullable = false)
+    @Column(name = "Title")
     private String title;
-    @Column(name = "Course_Code", nullable = false)
+    @Column(name = "Course_Code")
     private double courseCode;
-    @Column(name = "Credits", nullable = false)
+    @Column(name = "Credits")
     private int credits;
-    @Column(name = "Fees", nullable = false)
+    @Column(name = "Fees")
     private double fees;
-    @Column(name = "Students", nullable = false)
-    @ManyToMany(targetEntity = student.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "courses")
+    @Column(name = "Students")
+    @ManyToMany( fetch = FetchType.LAZY,  mappedBy = "courses")
     private Set<student> students;
 }

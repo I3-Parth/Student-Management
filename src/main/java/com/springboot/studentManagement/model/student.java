@@ -16,16 +16,16 @@ import java.util.Set;
 @NoArgsConstructor
 public class student {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="Name", nullable = false)
+    @Column(name="Name")
     private String name;
-    @Column(name = "Academic_Year",nullable = false)
+    @Column(name = "Academic_Year")
     private String Year;
-    @Column(name="Department",nullable = false)
+    @Column(name="Department")
     private String dept;
-    @Column(name = "Courses", nullable = false)
-    @ManyToMany(targetEntity = course.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "students")
+    @Column(name = "Courses")
+    @ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "Student_course_tale",
         joinColumns = {
                 @JoinColumn(name = "studentId",referencedColumnName = "id")
