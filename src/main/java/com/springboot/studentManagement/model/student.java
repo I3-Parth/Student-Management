@@ -1,5 +1,6 @@
 package com.springboot.studentManagement.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class student {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue()
     private Long id;
     @Column(name="Name")
     private String name;
@@ -33,6 +34,7 @@ public class student {
         inverseJoinColumns = {
                 @JoinColumn(name = "courseId",referencedColumnName = "id")
         })
+    @JsonManagedReference
     private Set<course> courses;
 
 }
