@@ -7,17 +7,22 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.springboot.studentManagement.exceptions.resourceNotFoundException;
 import com.springboot.studentManagement.repository.courseRepository;
+import com.springboot.studentManagement.repository.studentRepository;
 import com.springboot.studentManagement.model.course;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/courses")
 public class courseController {
     @Autowired
     courseRepository courseRepository;
+
+    @Autowired
+    studentRepository studentRepository;
 
     // Get All Courses
     @GetMapping
@@ -79,5 +84,27 @@ public class courseController {
         Map<String, Boolean> response=new HashMap<>();
         response.put("All courses records deleted",Boolean.TRUE);
         return response;
+    }
+
+    //Delete student from a course
+    @DeleteMapping("/{cid}/student/{sid}")
+    public  Map<String, Boolean> deleteStudentFromCourse(@PathVariable(value = "cid")Long cid,@PathVariable(value = "sid")Long sid) throws resourceNotFoundException{
+        course course=courseRepository.findById(cid).orElseThrow(()-> new resourceNotFoundException(cid));
+        student student=studentRepository.findById(sid).orElseThrow(()-> new resourceNotFoundException(sid));
+        student.getCourses().remove(course);
+        course.getStudents().remove(student);
+        studentRepository.save(student);
+        courseRepository.save(course);
+        Map<String, Boolean> response=new HashMap<>();
+        response.put("Student is removed from course",Boolean.TRUE);
+        return response;
+    }
+
+    // Get all students by course id
+    @GetMapping("/{id}/students")
+    public ResponseEntity<Set<student>> getStudentsByCourseId(@PathVariable(value = "id")Long courid)throws resourceNotFoundException{
+        course course=courseRepository.findById(courid).orElseThrow(()->new resourceNotFoundException(courid));
+        Set<student> students=course.getStudents();
+        return ResponseEntity.ok(students);
     }
 }

@@ -1,10 +1,12 @@
 package com.springboot.studentManagement.controller;
 
+import com.springboot.studentManagement.model.course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.springboot.studentManagement.repository.studentRepository;
+import com.springboot.studentManagement.repository.courseRepository;
 import com.springboot.studentManagement.model.student;
 import com.springboot.studentManagement.exceptions.resourceNotFoundException;
 
@@ -18,6 +20,9 @@ import java.util.Map;
 public class studentController {
     @Autowired
     studentRepository studentRepository;
+
+    @Autowired
+    courseRepository courseRepository;
 
     // Get All Students
     @GetMapping
@@ -50,6 +55,18 @@ public class studentController {
         return  this.studentRepository.saveAll(students);
     }
 
+    //Assign Student to a course
+    @PutMapping("/{sid}/course/{cid}")
+    public ResponseEntity<student> assignStudentToCourse(@PathVariable(value = "sid")Long sid, @PathVariable(value = "cid")Long cid)throws resourceNotFoundException{
+        course course=courseRepository.findById(cid).orElseThrow(()-> new resourceNotFoundException(cid));
+        student student=studentRepository.findById(sid).orElseThrow(()-> new resourceNotFoundException(sid));
+        student.getCourses().add(course);
+        course.getStudents().add(student);
+        courseRepository.save(course);
+        return ResponseEntity.ok(this.studentRepository.save(student));
+    }
+
+
     // Update Student
     @PutMapping("/{id}")
     public ResponseEntity<student> updateStudent(@PathVariable(value = "id")Long studid, @Validated @RequestBody student studentDetails)throws resourceNotFoundException {
@@ -79,4 +96,6 @@ public class studentController {
         response.put("All Students records deleted",Boolean.TRUE);
         return response;
     }
+
+
 }
