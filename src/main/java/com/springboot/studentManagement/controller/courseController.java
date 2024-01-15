@@ -77,7 +77,7 @@ public class courseController {
         return response;
     }
 
-    //Delete by ID
+    //Delete all courses
     @DeleteMapping("/deleteAll")
     public Map<String, Boolean> deleteAllCourses(){
         this.courseRepository.deleteAll();

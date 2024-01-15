@@ -55,7 +55,7 @@ public class studentController {
         return  this.studentRepository.saveAll(students);
     }
 
-    //Assign Student to a course
+    // Assign Student to a course
     @PutMapping("/{sid}/course/{cid}")
     public ResponseEntity<student> assignStudentToCourse(@PathVariable(value = "sid")Long sid, @PathVariable(value = "cid")Long cid)throws resourceNotFoundException{
         course course=courseRepository.findById(cid).orElseThrow(()-> new resourceNotFoundException(cid));
@@ -88,7 +88,7 @@ public class studentController {
         return response;
     }
 
-    //Delete by ID
+    // Delete all students
     @DeleteMapping("/deleteAll")
     public Map<String, Boolean> deleteAllStudents(){
         this.studentRepository.deleteAll();
