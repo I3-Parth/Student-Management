@@ -27,7 +27,7 @@ public class course {
     private int credits;
     @Column(name = "Fees")
     private double fees;
-    @Column(name = "Students")
+//    @Column(name = "Students")
     @ManyToMany( fetch = FetchType.LAZY,  mappedBy = "courses")
     @JsonBackReference
     private Set<student> students;
