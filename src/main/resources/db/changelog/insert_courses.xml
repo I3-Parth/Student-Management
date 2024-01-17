@@ -1,0 +1,15 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.10.xsd">
+
+    <changeSet id="05" author="Parth">
+        <insert tableName="students">
+            <column name="Title" value="Advanced Database"></column>
+            <column name="Course_Code" value="50334"></column>
+            <column name="Credits" value="3"></column>
+            <column name="Fees" value="23424"></column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
