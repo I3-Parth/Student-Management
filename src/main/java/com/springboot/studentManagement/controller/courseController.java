@@ -103,8 +103,8 @@ public class courseController {
     }
 
     //Delete student from a course
-    @DeleteMapping("/{cid}/student/{sid}")
-    public  Map<String, Boolean> deleteStudentFromCourse(@PathVariable(value = "cid")Long cid,@PathVariable(value = "sid")Long sid) throws resourceNotFoundException{
+    @DeleteMapping("/{courseId}/student/{studentId}")
+    public  Map<String, Boolean> deleteStudentFromCourse(@PathVariable(value = "courseId")Long cid,@PathVariable(value = "studentId")Long sid) throws resourceNotFoundException{
         course course=courseRepository.findById(cid).orElseThrow(()-> new resourceNotFoundException(cid));
         student student=studentRepository.findById(sid).orElseThrow(()-> new resourceNotFoundException(sid));
         student.getCourses().remove(course);
