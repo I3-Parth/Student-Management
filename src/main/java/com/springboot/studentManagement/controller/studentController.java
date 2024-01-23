@@ -9,6 +9,8 @@ import com.springboot.studentManagement.repository.studentRepository;
 import com.springboot.studentManagement.repository.courseRepository;
 import com.springboot.studentManagement.model.student;
 import com.springboot.studentManagement.exceptions.resourceNotFoundException;
+import com.springboot.studentManagement.service.studentService;
+import com.springboot.studentManagement.dto.studentDTO;
 
 
 import java.util.HashMap;
@@ -24,22 +26,36 @@ public class studentController {
     @Autowired
     courseRepository courseRepository;
 
+    @Autowired
+    studentService studentService;
+
     // Get All Students
+    //    @GetMapping
+    //    public List<student> getAllStudents(){
+    //        return this.studentRepository.findAll();
+    //    }
+
     @GetMapping
-    public List<student> getAllStudents(){
-        return this.studentRepository.findAll();
+    public List<studentDTO> getStudents(){
+        return studentService.getAllStudents();
     }
 
     // Get Student by ID
+    //    @GetMapping("/{id}")
+    //    public ResponseEntity<student> getById(@PathVariable(value = "id")Long studid) throws resourceNotFoundException {
+    //        student student=studentRepository.findById(studid).orElseThrow(()->new resourceNotFoundException(studid));
+    //        return ResponseEntity.ok().body(student);
+    //    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<student> getById(@PathVariable(value = "id")Long studid) throws resourceNotFoundException {
-        student student=studentRepository.findById(studid).orElseThrow(()->new resourceNotFoundException(studid));
-        return ResponseEntity.ok().body(student);
+    public studentDTO getStudentById(@PathVariable(value = "id")Long studId)throws resourceNotFoundException{
+        return  studentService.getStudentById(studId);
     }
+
 
     // Get by Name
     @GetMapping("/find/{name}")
-    public List<student> findbyname(@PathVariable String name){
+    public List<student> findByName(@PathVariable String name){
         return studentRepository.findByNameContaining(name);
     }
 

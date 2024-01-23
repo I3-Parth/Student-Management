@@ -9,6 +9,8 @@ import com.springboot.studentManagement.exceptions.resourceNotFoundException;
 import com.springboot.studentManagement.repository.courseRepository;
 import com.springboot.studentManagement.repository.studentRepository;
 import com.springboot.studentManagement.model.course;
+import com.springboot.studentManagement.dto.courseDTO;
+import com.springboot.studentManagement.service.courseService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,17 +26,31 @@ public class courseController {
     @Autowired
     studentRepository studentRepository;
 
+    @Autowired
+    courseService courseService;
+
     // Get All Courses
+    //    @GetMapping
+    //    public List<course> getAllSCourses(){
+    //        return this.courseRepository.findAll();
+    //    }
+
     @GetMapping
-    public List<course> getAllSCourses(){
-        return this.courseRepository.findAll();
+    public List<courseDTO> getAllCourses(){
+        return courseService.getAllCourses();
     }
 
+
     // Get Courses by ID
+    //    @GetMapping("/{id}")
+    //    public ResponseEntity<course> getById(@PathVariable(value = "id")Long courid) throws resourceNotFoundException {
+    //        course course=courseRepository.findById(courid).orElseThrow(()->new resourceNotFoundException(courid));
+    //        return ResponseEntity.ok().body(course);
+    //    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<course> getById(@PathVariable(value = "id")Long courid) throws resourceNotFoundException {
-        course course=courseRepository.findById(courid).orElseThrow(()->new resourceNotFoundException(courid));
-        return ResponseEntity.ok().body(course);
+    public courseDTO getCourseById(@PathVariable(value = "id")Long cId)throws resourceNotFoundException{
+        return courseService.getCourseById(cId);
     }
 
     // Get Courses by fees
@@ -101,10 +117,10 @@ public class courseController {
     }
 
     // Get all students by course id
-    @GetMapping("/{id}/students")
-    public ResponseEntity<Set<student>> getStudentsByCourseId(@PathVariable(value = "id")Long courid)throws resourceNotFoundException{
-        course course=courseRepository.findById(courid).orElseThrow(()->new resourceNotFoundException(courid));
-        Set<student> students=course.getStudents();
-        return ResponseEntity.ok(students);
-    }
+    //    @GetMapping("/{id}/students")
+    //    public ResponseEntity<Set<student>> getStudentsByCourseId(@PathVariable(value = "id")Long courid)throws resourceNotFoundException{
+    //        course course=courseRepository.findById(courid).orElseThrow(()->new resourceNotFoundException(courid));
+    //        Set<student> students=course.getStudents();
+    //        return ResponseEntity.ok(students);
+    //    }
 }
