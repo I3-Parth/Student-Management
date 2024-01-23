@@ -4,11 +4,12 @@
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.10.xsd">
 
     <changeSet id="05" author="Parth">
-        <insert tableName="students">
-            <column name="Title" value="Advanced Database"></column>
-            <column name="Course_Code" value="50334"></column>
-            <column name="Credits" value="3"></column>
-            <column name="Fees" value="23424"></column>
+        <insert tableName="courses">
+            <column name="id" value="1001"/>
+            <column name="title" value="Advanced Database"></column>
+            <column name="course_code" value="50334"></column>
+            <column name="credits" value="3"></column>
+            <column name="fees" value="23424"></column>
         </insert>
     </changeSet>
 

@@ -17,7 +17,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class student {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq")
+    @SequenceGenerator(name = "student_seq", sequenceName = "student_tbl_seq", allocationSize = 1)
     private Long id;
     @Column(name="Name")
     private String name;
@@ -34,7 +35,7 @@ public class student {
         inverseJoinColumns = {
                 @JoinColumn(name = "courseId",referencedColumnName = "id")
         })
-    @JsonManagedReference
+//    @JsonManagedReference
     private Set<course> courses;
 
 }

@@ -5,7 +5,7 @@
 
     <changeSet id="05" author="Parth">
         <insert tableName="students">
-            <column name="id" value="400"></column>
+            <column name="id" value="10001"></column>
             <column name="name" value="Akshat Shah"></column>
             <column name="department" value="IT"></column>
             <column name="academic_year" value="First Year"></column>
