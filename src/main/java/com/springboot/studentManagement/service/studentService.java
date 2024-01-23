@@ -1,7 +1,11 @@
 package com.springboot.studentManagement.service;
 
+import com.springboot.studentManagement.dto.studentCoursesDTO;
 import com.springboot.studentManagement.exceptions.resourceNotFoundException;
+import com.springboot.studentManagement.model.course;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
+import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.springboot.studentManagement.repository.studentRepository;
@@ -23,7 +27,7 @@ public class studentService {
     }
 
     public studentDTO getStudentById(Long id)throws resourceNotFoundException{
-        student student=studentRepository.findById(id).orElseThrow(()->new resourceNotFoundException(id));
+        student student = studentRepository.findById(id).orElseThrow(()->new resourceNotFoundException(id));
         return convertEntityToDto(student);
     }
     private studentDTO convertEntityToDto(student student){
@@ -31,4 +35,11 @@ public class studentService {
         return studentDTO;
     }
 
+    public studentCoursesDTO getStudentCourses(Long id)throws resourceNotFoundException{
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        student student = studentRepository.findById(id).orElseThrow(()->new resourceNotFoundException(id));
+        List<String> courses=student.getCourses().stream().map(course::getTitle).collect(Collectors.toList());
+        studentCoursesDTO studentCoursesDTO=new studentCoursesDTO(student.getId(),student.getName(),courses);
+        return studentCoursesDTO;
+    }
 }
