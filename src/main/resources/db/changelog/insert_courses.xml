@@ -10,7 +10,7 @@
             <column name="course_code" value="50334"></column>
             <column name="credits" value="3"></column>
             <column name="fees" value="23424"></column>
-        </insert>
+  </insert>
     </changeSet>
 
 </databaseChangeLog>
