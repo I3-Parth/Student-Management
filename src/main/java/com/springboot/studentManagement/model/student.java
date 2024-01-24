@@ -2,6 +2,7 @@ package com.springboot.studentManagement.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +25,10 @@ public class student {
     private String firstName;
     @Column(name = "LastName")
     private String lastName;
+    @NotBlank(message = "Academic year is mandatory")
     @Column(name = "Academic_Year")
     private String Year;
+    @NotBlank(message = "Department is mandatory")
     @Column(name="Department")
     private String dept;
 //    @Column(name = "Courses")

@@ -6,6 +6,7 @@ import com.springboot.studentManagement.dto.StudentDTO;
 import com.springboot.studentManagement.dto.UpdateStudentDTO;
 import com.springboot.studentManagement.model.course;
 import com.springboot.studentManagement.services.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -59,7 +60,7 @@ public class studentController {
 
     // Create Multiple Students
     @PostMapping
-    public Set<CreateStudentDTO> createMultipleStudents(@RequestBody Set<CreateStudentDTO> createStudentDTOS){
+    public Set<CreateStudentDTO> createMultipleStudents(@Valid @RequestBody Set<CreateStudentDTO> createStudentDTOS){
         return studentService.createStudentDTOS(createStudentDTOS);
     }
 

@@ -4,6 +4,7 @@ import com.springboot.studentManagement.dto.CourseDTO;
 import com.springboot.studentManagement.dto.CreateCourseDTO;
 import com.springboot.studentManagement.model.student;
 import com.springboot.studentManagement.services.CourseService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -57,7 +58,7 @@ public class courseController {
 
     // Create Multiple Courses
     @PostMapping
-    public Set<CreateCourseDTO> createMultipleCourses(@RequestBody Set<CreateCourseDTO> createCourseDTOS){
+    public Set<CreateCourseDTO> createMultipleCourses(@Valid @RequestBody Set<CreateCourseDTO> createCourseDTOS){
         return courseService.createCourseDTOS(createCourseDTOS);
     }
 
