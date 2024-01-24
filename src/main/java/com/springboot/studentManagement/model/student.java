@@ -2,6 +2,7 @@ package com.springboot.studentManagement.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,13 @@ public class student {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq")
     @SequenceGenerator(name = "student_seq", sequenceName = "student_tbl_seq", allocationSize = 1)
     private Long id;
+    @NotBlank(message = "Name is mandatory")
     @Column(name="Name")
     private String name;
+    @NotBlank(message = "Academic year is mandatory")
     @Column(name = "Academic_Year")
     private String Year;
+    @NotBlank(message = "Department is mandatory")
     @Column(name="Department")
     private String dept;
 //    @Column(name = "Courses")
