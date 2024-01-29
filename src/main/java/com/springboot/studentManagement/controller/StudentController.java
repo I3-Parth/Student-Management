@@ -1,14 +1,14 @@
 package com.springboot.studentManagement.controller;
 
-import com.springboot.studentManagement.model.course;
+import com.springboot.studentManagement.model.Course;
+import com.springboot.studentManagement.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import com.springboot.studentManagement.repository.studentRepository;
-import com.springboot.studentManagement.repository.courseRepository;
-import com.springboot.studentManagement.model.student;
-import com.springboot.studentManagement.exceptions.resourceNotFoundException;
+import com.springboot.studentManagement.repository.StudentRepository;
+import com.springboot.studentManagement.repository.CourseRepository;
+import com.springboot.studentManagement.exceptions.ResourceNotFoundException;
 
 
 import java.util.HashMap;
@@ -17,50 +17,50 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/students")
-public class studentController {
+public class StudentController {
     @Autowired
-    studentRepository studentRepository;
+    StudentRepository studentRepository;
 
     @Autowired
-    courseRepository courseRepository;
+    CourseRepository courseRepository;
 
     // Get All Students
     @GetMapping
-    public List<student> getAllStudents(){
+    public List<Student> getAllStudents(){
         return this.studentRepository.findAll();
     }
 
     // Get Student by ID
     @GetMapping("/{id}")
-    public ResponseEntity<student> getById(@PathVariable(value = "id")Long studid) throws resourceNotFoundException {
-        student student=studentRepository.findById(studid).orElseThrow(()->new resourceNotFoundException(studid));
+    public ResponseEntity<Student> getById(@PathVariable(value = "id")Long studid) throws ResourceNotFoundException {
+        Student student=studentRepository.findById(studid).orElseThrow(()->new ResourceNotFoundException(studid));
         return ResponseEntity.ok().body(student);
     }
 
     // Get by Name
     @GetMapping("/find/{name}")
-    public List<student> findbyname(@PathVariable String name){
+    public List<Student> findbyname(@PathVariable String name){
         return studentRepository.findByNameContaining(name);
     }
 
     // Create Student
     @PostMapping
-    public student createStudent(@RequestBody student student){
+    public Student createStudent(@RequestBody Student student){
         return this.studentRepository.save(student);
     }
 
     // Create Multiple Students
     @PostMapping("/createMultiple")
-    public List<student> createMultipleStudents(@RequestBody List<student> students){
-        return  this.studentRepository.saveAll(students);
+    public List<Student> createMultipleStudents(@RequestBody List<Student> Students){
+        return  this.studentRepository.saveAll(Students);
     }
 
     // Assign Student to a course
     @PutMapping("/{sid}/course/{cid}")
-    public ResponseEntity<student> assignStudentToCourse(@PathVariable(value = "sid")Long sid, @PathVariable(value = "cid")Long cid)throws resourceNotFoundException{
-        course course=courseRepository.findById(cid).orElseThrow(()-> new resourceNotFoundException(cid));
-        student student=studentRepository.findById(sid).orElseThrow(()-> new resourceNotFoundException(sid));
-        student.getCourses().add(course);
+    public ResponseEntity<Student> assignStudentToCourse(@PathVariable(value = "sid")Long sid, @PathVariable(value = "cid")Long cid)throws ResourceNotFoundException {
+        Course course=courseRepository.findById(cid).orElseThrow(()-> new ResourceNotFoundException(cid));
+        Student student=studentRepository.findById(sid).orElseThrow(()-> new ResourceNotFoundException(sid));
+        student.getCours().add(course);
         course.getStudents().add(student);
         courseRepository.save(course);
         return ResponseEntity.ok(this.studentRepository.save(student));
@@ -69,9 +69,9 @@ public class studentController {
 
     // Update Student
     @PutMapping("/{id}")
-    public ResponseEntity<student> updateStudent(@PathVariable(value = "id")Long studid, @Validated @RequestBody student studentDetails)throws resourceNotFoundException {
-        student student=studentRepository.findById(studid).orElseThrow(()->new resourceNotFoundException(studid));
-        student.setCourses(studentDetails.getCourses());
+    public ResponseEntity<Student> updateStudent(@PathVariable(value = "id")Long studid, @Validated @RequestBody Student studentDetails)throws ResourceNotFoundException {
+        Student student=studentRepository.findById(studid).orElseThrow(()->new ResourceNotFoundException(studid));
+        student.setCours(studentDetails.getCours());
         student.setDept(studentDetails.getDept());
         student.setName(studentDetails.getName());
         student.setYear(studentDetails.getYear());
@@ -80,8 +80,8 @@ public class studentController {
 
     // Delete by ID
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> deleteStudent(@PathVariable(value = "id") Long studid)throws resourceNotFoundException {
-        student student=studentRepository.findById(studid).orElseThrow(()->new resourceNotFoundException(studid));
+    public Map<String, Boolean> deleteStudent(@PathVariable(value = "id") Long studid)throws ResourceNotFoundException {
+        Student student=studentRepository.findById(studid).orElseThrow(()->new ResourceNotFoundException(studid));
         this.studentRepository.delete(student);
         Map<String, Boolean> response=new HashMap<>();
         response.put("Student with id "+studid+" is deleted successfully",Boolean.TRUE);

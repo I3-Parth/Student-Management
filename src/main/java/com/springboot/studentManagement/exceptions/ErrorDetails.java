@@ -10,7 +10,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class errorDetails {
+public class ErrorDetails {
     private Date timestamp;
     private String message;
     private String details;

@@ -1,6 +1,5 @@
 package com.springboot.studentManagement.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +14,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class course {
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "course_seq")
     @SequenceGenerator(name = "course_seq", sequenceName = "course_tbl_seq", allocationSize = 1)
@@ -30,6 +29,6 @@ public class course {
     private double fees;
 //    @Column(name = "Students")
     @ManyToMany( fetch = FetchType.LAZY,  mappedBy = "courses")
-    @JsonBackReference
-    private Set<student> students;
+    // @JsonBackReference
+    private Set<Student> Students;
 }

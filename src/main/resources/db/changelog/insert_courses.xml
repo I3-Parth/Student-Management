@@ -4,7 +4,7 @@
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.10.xsd">
 
     <changeSet id="05" author="Parth">
-        <insert tableName="courses">
+        <insert tableName="cours">
             <column name="id" value="1001"/>
             <column name="title" value="Advanced Database"></column>
             <column name="course_code" value="50334"></column>

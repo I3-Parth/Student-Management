@@ -4,7 +4,7 @@
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.10.xsd">
 
     <changeSet id="05" author="Parth">
-        <insert tableName="students">
+        <insert tableName="Students">
             <column name="id" value="10001"></column>
             <column name="name" value="Akshat Shah"></column>
             <column name="department" value="IT"></column>

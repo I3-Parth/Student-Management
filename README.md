@@ -1,11 +1,11 @@
 # Student Management System
-This is a Spring Boot project for managing students using REST API, PostgreSQL, Swagger UI, and JPA concepts.
+This is a Spring Boot project for managing Students using REST API, PostgreSQL, Swagger UI, and JPA concepts.
 
 ## Overview
 
-- **Spring Boot Project**: This project is built using the Spring Boot framework, providing a robust and scalable architecture for managing students.
+- **Spring Boot Project**: This project is built using the Spring Boot framework, providing a robust and scalable architecture for managing Students.
 
-- **REST API**: The application exposes a set of RESTful APIs to perform CRUD operations on student entities and associated courses.
+- **REST API**: The application exposes a set of RESTful APIs to perform CRUD operations on student entities and associated cours.
 
 - **PostgreSQL Database**: The project utilizes a PostgreSQL database to store and manage student and course data.
 
@@ -17,9 +17,9 @@ This is a Spring Boot project for managing students using REST API, PostgreSQL, 
 
 The project involves two tables:
 
-1. **Student Table**: Stores information about students.
+1. **Student Table**: Stores information about Students.
 
-2. **Course Table**: Stores information about courses.
+2. **Course Table**: Stores information about cours.
 
 ## 1. Student Table
 ### Attributes
