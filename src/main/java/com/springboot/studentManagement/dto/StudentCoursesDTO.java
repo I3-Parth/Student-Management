@@ -1,5 +1,5 @@
 package com.springboot.studentManagement.dto;
-
+import com.springboot.studentManagement.dto.CourseDTO;
 import lombok.Data;
 
 import java.util.List;
@@ -9,5 +9,5 @@ import java.util.List;
 public class StudentCoursesDTO {
     private Long id;
     private String name;
-    private List<String> courses;
+    private List<CourseDTO> courses;
 }
