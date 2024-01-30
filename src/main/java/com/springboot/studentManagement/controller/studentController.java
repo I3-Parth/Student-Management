@@ -1,6 +1,8 @@
 package com.springboot.studentManagement.controller;
 
+import com.springboot.studentManagement.dto.StudentDTO;
 import com.springboot.studentManagement.model.course;
+import com.springboot.studentManagement.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,17 +26,18 @@ public class studentController {
     @Autowired
     courseRepository courseRepository;
 
+    @Autowired
+    StudentService studentService;
     // Get All Students
     @GetMapping
-    public List<student> getAllStudents(){
-        return this.studentRepository.findAll();
+    public List<StudentDTO> getAllStudents(){
+        return studentService.getAllStudents();
     }
 
     // Get Student by ID
     @GetMapping("/{id}")
-    public ResponseEntity<student> getById(@PathVariable(value = "id")Long studid) throws resourceNotFoundException {
-        student student=studentRepository.findById(studid).orElseThrow(()->new resourceNotFoundException(studid));
-        return ResponseEntity.ok().body(student);
+    public StudentDTO getById(@PathVariable(value = "id")Long studid) throws resourceNotFoundException {
+        return studentService.getStudentById(studid);
     }
 
     // Get by Name
