@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Parth
+      changes:
+        - createTable:
+            tableName: Students
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: Name
+                  type: varchar(255)
+              - column:
+                  name: Academic_Year
+                  type: varchar(255)
+              - column:
+                  name: Department
+                  type: varchar(255)
+  - changeSet:
+      id: 2
+      author: Parth
+      createSequence:
+        sequenceName: student_tbl_seq
+        startValue: 1
+        incrementBy: 1

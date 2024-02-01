@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: '05'
+      id: 8
       author: Parth
 
       # Insert data into courses table

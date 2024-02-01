@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: '05'
+      id: 7
       author: Parth
 
       # Insert data into students table
