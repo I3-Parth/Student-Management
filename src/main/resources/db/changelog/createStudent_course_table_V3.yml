@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: Parth
+      changes:
+        createTable:
+          tableName: Students_Courses
+          columns:
+            - column:
+                name: student_id
+                type: bigint
+                constraints:
+                  foreignKeyName: FK_Students_Courses_Student
+                  references: Students(id)
+            - column:
+                name: course_id
+                type: bigint
+                constraints:
+                  foreignKeyName: FK_Students_Courses_Course
+                  references: Courses(id)
+  - changeSet:
+      id: 6
+      author: Parth
+      addForeignKeyConstraint:
+        baseTableName: Students_Courses
+        baseColumnNames: student_id
+        referencedTableName: Students
+        referencedColumnNames: id
+        constraintName: FK_Students_Courses_Student
+
+        addForeignKeyConstraint:
+          baseTableName: Students_Courses
+          baseColumnNames: course_id
+          referencedTableName: Courses
+          referencedColumnNames: id
+          constraintName: FK_Students_Courses_Course

@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: Parth
+
+      # Insert data into students table
+      insert:
+        tableName: students
+        columns:
+          - column:
+              name: id
+              value: '10001'
+          - column:
+              name: name
+              value: 'Akshat Shah'
+          - column:
+              name: department
+              value: 'IT'
+          - column:
+              name: academic_year
+              value: 'First Year'
