@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: Parth
+      changes:
+
+      createTable:
+        tableName: Courses
+        columns:
+          - column:
+              name: id
+              type: bigint
+              autoIncrement: true
+              constraints:
+                primaryKey: true
+          - column:
+              name: Title
+              type: varchar(255)
+          - column:
+              name: Course_Code
+              type: double
+          - column:
+              name: Credits
+              type: int
+          - column:
+              name: Fees
+              type: double
+  - changeSet:
+      id: 4
+      author: Parth
+      createSequence:
+        sequenceName: course_tbl_seq
+        startValue: 1
+        incrementBy: 1

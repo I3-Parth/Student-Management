@@ -28,7 +28,7 @@ public class student {
     private String dept;
 //    @Column(name = "Courses")
     @ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "Student_course_tale",
+    @JoinTable(name = "Student_course_table",
         joinColumns = {
                 @JoinColumn(name = "studentId",referencedColumnName = "id")
         },
