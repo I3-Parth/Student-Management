@@ -100,10 +100,10 @@ public class courseController {
     }
 
     // Get all students by course id
-    @GetMapping("/{id}/students")
-    public ResponseEntity<Set<student>> getStudentsByCourseId(@PathVariable(value = "id")Long courid)throws resourceNotFoundException{
-        course course=courseRepository.findById(courid).orElseThrow(()->new resourceNotFoundException(courid));
-        Set<student> students=course.getStudents();
-        return ResponseEntity.ok(students);
-    }
+//    @GetMapping("/{id}/students")
+//    public ResponseEntity<Set<student>> getStudentsByCourseId(@PathVariable(value = "id")Long courid)throws resourceNotFoundException{
+//        course course=courseRepository.findById(courid).orElseThrow(()->new resourceNotFoundException(courid));
+//        Set<student> students=course.getStudents();
+//        return ResponseEntity.ok(students);
+//    }
 }

@@ -16,7 +16,7 @@ import com.springboot.studentManagement.model.course;
 import com.springboot.studentManagement.exceptions.resourceNotFoundException;
 
 @RestController
-@RequestMapping("/student/course")
+@RequestMapping("")
 public class studentCourseController {
     @Autowired
     studentRepository studentRepository;
@@ -30,7 +30,7 @@ public class studentCourseController {
     @Autowired
     CourseService courseService;
 
-    @GetMapping("students/{studentId}/courses")
+    @GetMapping("/students/{studentId}/courses")
     public StudentCoursesDTO getStudentCourses(@PathVariable(value = "studentId")Long studId)throws resourceNotFoundException{
         return studentService.getCoursesByStudents(studId);
     }
