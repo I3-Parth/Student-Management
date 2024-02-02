@@ -2,7 +2,10 @@ package com.springboot.studentManagement.services;
 
 import com.springboot.studentManagement.dto.CourseDTO;
 import com.springboot.studentManagement.dto.CourseStudentsDTO;
+import com.springboot.studentManagement.dto.StudentDTO;
 import com.springboot.studentManagement.mapper.CourseMapper;
+import com.springboot.studentManagement.model.student;
+import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.springboot.studentManagement.model.course;
 import org.springframework.stereotype.Service;
@@ -20,7 +23,6 @@ public class CourseService {
 
     @Autowired
     courseRepository courseRepository;
-
     public List<CourseDTO> getAllCourses(){
         List<course> courses = courseRepository.findAll();
         return courses.stream().map(courseMapper::modelToDTO).collect(Collectors.toList());
@@ -34,4 +36,9 @@ public class CourseService {
         return courseMapper.getStudentsByCourse(courseRepository.findById(id).orElseThrow(()->new resourceNotFoundException(id)));
     }
 
+    public course updateCourse(CourseDTO courseDTO){
+        course course = courseMapper.dtoToModel(courseDTO);
+        courseRepository.save(course);
+        return course;
+    }
 }

@@ -32,4 +32,10 @@ public class StudentService {
     public StudentCoursesDTO getCoursesByStudents(Long id)throws resourceNotFoundException{
         return studentMapper.getCoursesByStudent(studentRepository.findById(id).orElseThrow(()->new resourceNotFoundException(id)));
     }
+
+    public student updateStudent(StudentDTO studentDTO){
+        student student = studentMapper.dtoToModel(studentDTO);
+        studentRepository.save(student);
+        return student;
+    }
 }

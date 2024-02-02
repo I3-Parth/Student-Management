@@ -8,6 +8,7 @@ import java.util.List;
 //@AllArgsConstructor
 public class StudentCoursesDTO {
     private Long id;
-    private String name;
+    private String fullName;
+    private int totalCourses;
     private List<CourseDTO> courses;
 }

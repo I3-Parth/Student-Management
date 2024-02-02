@@ -41,10 +41,10 @@ public class studentController {
     }
 
     // Get by Name
-    @GetMapping("/find/{name}")
-    public List<student> findbyname(@PathVariable String name){
-        return studentRepository.findByNameContaining(name);
-    }
+//    @GetMapping("/find/{name}")
+//    public List<student> findbyname(@PathVariable String name){
+//        return studentRepository.findByNameContaining(name);
+//    }
 
     // Create Student
     @PostMapping
@@ -72,13 +72,9 @@ public class studentController {
 
     // Update Student
     @PutMapping("/{id}")
-    public ResponseEntity<student> updateStudent(@PathVariable(value = "id")Long studid, @Validated @RequestBody student studentDetails)throws resourceNotFoundException {
-        student student=studentRepository.findById(studid).orElseThrow(()->new resourceNotFoundException(studid));
-        student.setCourses(studentDetails.getCourses());
-        student.setDept(studentDetails.getDept());
-        student.setName(studentDetails.getName());
-        student.setYear(studentDetails.getYear());
-        return ResponseEntity.ok(this.studentRepository.save(student));
+    public student updateStudent(@PathVariable(value = "id")Long studid, @Validated @RequestBody StudentDTO studentDetails)throws resourceNotFoundException {
+        studentDetails.setId(studid);
+        return studentService.updateStudent(studentDetails);
     }
 
     // Delete by ID

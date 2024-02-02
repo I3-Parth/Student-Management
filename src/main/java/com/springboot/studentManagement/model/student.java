@@ -20,15 +20,17 @@ public class student {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq")
     @SequenceGenerator(name = "student_seq", sequenceName = "student_tbl_seq", allocationSize = 1)
     private Long id;
-    @Column(name="Name")
-    private String name;
+    @Column(name = "FirstName")
+    private String firstName;
+    @Column(name = "LastName")
+    private String lastName;
     @Column(name = "Academic_Year")
     private String Year;
     @Column(name="Department")
     private String dept;
 //    @Column(name = "Courses")
     @ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "Student_course_tale",
+    @JoinTable(name = "Student_course_table",
         joinColumns = {
                 @JoinColumn(name = "studentId",referencedColumnName = "id")
         },

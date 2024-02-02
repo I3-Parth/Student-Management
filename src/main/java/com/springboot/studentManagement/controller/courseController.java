@@ -61,14 +61,9 @@ public class courseController {
 
     // Update Courses
     @PutMapping("/{id}")
-    public ResponseEntity<course> updateCourses(@PathVariable(value = "id")Long courid, @Validated @RequestBody course courseDetails)throws resourceNotFoundException {
-        course course=courseRepository.findById(courid).orElseThrow(()->new resourceNotFoundException(courid));
-        course.setCourseCode(courseDetails.getCourseCode());
-        course.setStudents(courseDetails.getStudents());
-        course.setFees(courseDetails.getFees());
-        course.setTitle(courseDetails.getTitle());
-        course.setCredits(courseDetails.getCredits());
-        return ResponseEntity.ok(this.courseRepository.save(course));
+    public course updateCourses(@PathVariable(value = "id")Long courid, @Validated @RequestBody CourseDTO courseDetails)throws resourceNotFoundException {
+        courseDetails.setId(courid);
+        return courseService.updateCourse(courseDetails);
     }
 
     // Delete by ID
