@@ -1,6 +1,7 @@
 package com.springboot.studentManagement.controller;
 
 import com.springboot.studentManagement.dto.StudentDTO;
+import com.springboot.studentManagement.dto.UpdateStudentDTO;
 import com.springboot.studentManagement.model.course;
 import com.springboot.studentManagement.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,11 +73,8 @@ public class studentController {
 
     // Update Student
     @PutMapping("/{id}")
-    public student updateStudent(@PathVariable(value = "id")Long studid, @Validated @RequestBody StudentDTO studentDetails)throws resourceNotFoundException {
-        student student=studentRepository.findById(studid).orElseThrow(()-> new resourceNotFoundException(studid));
-        studentDetails.setId(studid);
-        student = studentService.updateStudent(studentDetails);
-        return student;
+    public StudentDTO updateStudent(@PathVariable(value = "id")Long studid, @Validated @RequestBody UpdateStudentDTO studentDetails)throws resourceNotFoundException {
+        return studentService.updateStudent(studid, studentDetails);
     }
 
     // Delete by ID

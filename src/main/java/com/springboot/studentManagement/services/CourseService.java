@@ -11,6 +11,7 @@ import com.springboot.studentManagement.model.course;
 import org.springframework.stereotype.Service;
 import com.springboot.studentManagement.exceptions.resourceNotFoundException;
 import com.springboot.studentManagement.repository.courseRepository;
+import com.springboot.studentManagement.dto.UpdateCourseDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,9 +37,10 @@ public class CourseService {
         return courseMapper.getStudentsByCourse(courseRepository.findById(id).orElseThrow(()->new resourceNotFoundException(id)));
     }
 
-    public course updateCourse(CourseDTO courseDTO){
-        course course = courseMapper.dtoToModel(courseDTO);
-        courseRepository.save(course);
-        return course;
+    public CourseDTO updateCourse(Long id, UpdateCourseDTO updateCourseDTO)throws resourceNotFoundException{
+        course course = courseRepository.findById(id).orElseThrow(()->new resourceNotFoundException(id));
+        courseMapper.updateExisting(updateCourseDTO,course);
+        course course1 = courseRepository.save(course);
+        return courseMapper.modelToDTO(course1);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.springboot.studentManagement.exceptions.resourceNotFoundException;
 import com.springboot.studentManagement.repository.courseRepository;
 import com.springboot.studentManagement.repository.studentRepository;
+import com.springboot.studentManagement.dto.UpdateCourseDTO;
 import com.springboot.studentManagement.model.course;
 
 import java.util.HashMap;
@@ -61,11 +62,8 @@ public class courseController {
 
     // Update Courses
     @PutMapping("/{id}")
-    public course updateCourses(@PathVariable(value = "id")Long courid, @Validated @RequestBody CourseDTO courseDetails)throws resourceNotFoundException {
-        course course = courseRepository.findById(courid).orElseThrow(()->new resourceNotFoundException(courid));
-        courseDetails.setId(courid);
-        course = courseService.updateCourse(courseDetails);
-        return course;
+    public CourseDTO updateCourses(@PathVariable(value = "id")Long courid, @Validated @RequestBody UpdateCourseDTO courseDetails)throws resourceNotFoundException {
+        return courseService.updateCourse(courid, courseDetails);
     }
 
     // Delete by ID

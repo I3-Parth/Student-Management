@@ -2,6 +2,7 @@ package com.springboot.studentManagement.services;
 
 import com.springboot.studentManagement.dto.StudentCoursesDTO;
 import com.springboot.studentManagement.dto.StudentDTO;
+import com.springboot.studentManagement.dto.UpdateStudentDTO;
 import com.springboot.studentManagement.mapper.StudentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.springboot.studentManagement.repository.studentRepository;
@@ -33,9 +34,10 @@ public class StudentService {
         return studentMapper.getCoursesByStudent(studentRepository.findById(id).orElseThrow(()->new resourceNotFoundException(id)));
     }
 
-    public student updateStudent(StudentDTO studentDTO){
-        student student = studentMapper.dtoToModel(studentDTO);
-        studentRepository.save(student);
-        return student;
+    public StudentDTO updateStudent(Long id, UpdateStudentDTO updateStudentDTO)throws resourceNotFoundException{
+        student student = studentRepository.findById(id).orElseThrow(()-> new resourceNotFoundException(id));
+        studentMapper.updateStudent(updateStudentDTO, student);
+        student student1 = studentRepository.save(student);
+        return studentMapper.modelToDTO(student1);
     }
 }
