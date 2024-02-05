@@ -62,8 +62,10 @@ public class courseController {
     // Update Courses
     @PutMapping("/{id}")
     public course updateCourses(@PathVariable(value = "id")Long courid, @Validated @RequestBody CourseDTO courseDetails)throws resourceNotFoundException {
+        course course = courseRepository.findById(courid).orElseThrow(()->new resourceNotFoundException(courid));
         courseDetails.setId(courid);
-        return courseService.updateCourse(courseDetails);
+        course = courseService.updateCourse(courseDetails);
+        return course;
     }
 
     // Delete by ID

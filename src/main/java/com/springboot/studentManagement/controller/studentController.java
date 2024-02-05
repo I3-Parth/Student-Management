@@ -59,22 +59,24 @@ public class studentController {
     }
 
     // Assign Student to a course
-    @PutMapping("/{sid}/course/{cid}")
-    public ResponseEntity<student> assignStudentToCourse(@PathVariable(value = "sid")Long sid, @PathVariable(value = "cid")Long cid)throws resourceNotFoundException{
-        course course=courseRepository.findById(cid).orElseThrow(()-> new resourceNotFoundException(cid));
-        student student=studentRepository.findById(sid).orElseThrow(()-> new resourceNotFoundException(sid));
-        student.getCourses().add(course);
-        course.getStudents().add(student);
-        courseRepository.save(course);
-        return ResponseEntity.ok(this.studentRepository.save(student));
-    }
+//    @PutMapping("/{sid}/course/{cid}")
+//    public ResponseEntity<student> assignStudentToCourse(@PathVariable(value = "sid")Long sid, @PathVariable(value = "cid")Long cid)throws resourceNotFoundException{
+//        course course=courseRepository.findById(cid).orElseThrow(()-> new resourceNotFoundException(cid));
+//        student student=studentRepository.findById(sid).orElseThrow(()-> new resourceNotFoundException(sid));
+//        student.getCourses().add(course);
+//        course.getStudents().add(student);
+//        courseRepository.save(course);
+//        return ResponseEntity.ok(this.studentRepository.save(student));
+//    }
 
 
     // Update Student
     @PutMapping("/{id}")
     public student updateStudent(@PathVariable(value = "id")Long studid, @Validated @RequestBody StudentDTO studentDetails)throws resourceNotFoundException {
+        student student=studentRepository.findById(studid).orElseThrow(()-> new resourceNotFoundException(studid));
         studentDetails.setId(studid);
-        return studentService.updateStudent(studentDetails);
+        student = studentService.updateStudent(studentDetails);
+        return student;
     }
 
     // Delete by ID
