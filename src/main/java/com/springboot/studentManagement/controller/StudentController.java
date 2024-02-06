@@ -2,6 +2,7 @@ package com.springboot.studentManagement.controller;
 
 import com.springboot.studentManagement.model.Course;
 import com.springboot.studentManagement.model.Student;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -45,13 +46,13 @@ public class StudentController {
 
     // Create Student
     @PostMapping
-    public Student createStudent(@RequestBody Student student){
+    public Student createStudent(@Valid @RequestBody Student student){
         return this.studentRepository.save(student);
     }
 
     // Create Multiple Students
     @PostMapping("/createMultiple")
-    public List<Student> createMultipleStudents(@RequestBody List<Student> Students){
+    public List<Student> createMultipleStudents(@Valid @RequestBody List<Student> Students){
         return  this.studentRepository.saveAll(Students);
     }
 
