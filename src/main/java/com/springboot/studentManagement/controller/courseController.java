@@ -1,6 +1,7 @@
 package com.springboot.studentManagement.controller;
 
 import com.springboot.studentManagement.dto.CourseDTO;
+import com.springboot.studentManagement.dto.CreateCourseDTO;
 import com.springboot.studentManagement.model.student;
 import com.springboot.studentManagement.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,21 +44,21 @@ public class courseController {
     }
 
     // Get Courses by fees
-    @GetMapping("/find/{fees}")
-    public List<course> getCoursesByFees(@PathVariable double fees){
-        return courseRepository.findByFeesLessThan(fees);
-    }
+//    @GetMapping("/find/{fees}")
+//    public List<course> getCoursesByFees(@PathVariable double fees){
+//        return courseRepository.findByFeesLessThan(fees);
+//    }
 
     // Create Courses
-    @PostMapping
-    public course createCourses(@RequestBody course course){
-        return this.courseRepository.save(course);
-    }
+//    @PostMapping
+//    public course createCourses(@RequestBody course course){
+//        return this.courseRepository.save(course);
+//    }
 
     // Create Multiple Courses
-    @PostMapping("/createMultiple")
-    public List<course> createMultipleCourses(@RequestBody List<course> courses){
-        return  this.courseRepository.saveAll(courses);
+    @PostMapping
+    public Set<CreateCourseDTO> createMultipleCourses(@RequestBody Set<CreateCourseDTO> createCourseDTOS){
+        return courseService.createCourseDTOS(createCourseDTOS);
     }
 
     // Update Courses
@@ -77,7 +78,7 @@ public class courseController {
     }
 
     //Delete all courses
-    @DeleteMapping("/deleteAll")
+    @DeleteMapping
     public Map<String, Boolean> deleteAllCourses(){
         this.courseRepository.deleteAll();
         Map<String, Boolean> response=new HashMap<>();

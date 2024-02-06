@@ -1,5 +1,7 @@
 package com.springboot.studentManagement.controller;
 
+import com.springboot.studentManagement.dto.CreateCourseDTO;
+import com.springboot.studentManagement.dto.CreateStudentDTO;
 import com.springboot.studentManagement.dto.StudentDTO;
 import com.springboot.studentManagement.dto.UpdateStudentDTO;
 import com.springboot.studentManagement.model.course;
@@ -17,6 +19,7 @@ import com.springboot.studentManagement.exceptions.resourceNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/students")
@@ -48,15 +51,15 @@ public class studentController {
 //    }
 
     // Create Student
-    @PostMapping
-    public student createStudent(@RequestBody student student){
-        return this.studentRepository.save(student);
-    }
+//    @PostMapping
+//    public student createStudent(@RequestBody student student){
+//        return this.studentRepository.save(student);
+//    }
 
     // Create Multiple Students
-    @PostMapping("/createMultiple")
-    public List<student> createMultipleStudents(@RequestBody List<student> students){
-        return  this.studentRepository.saveAll(students);
+    @PostMapping
+    public Set<CreateStudentDTO> createMultipleStudents(@RequestBody Set<CreateStudentDTO> createStudentDTOS){
+        return studentService.createStudentDTOS(createStudentDTOS);
     }
 
     // Assign Student to a course
@@ -88,7 +91,7 @@ public class studentController {
     }
 
     // Delete all students
-    @DeleteMapping("/deleteAll")
+    @DeleteMapping
     public Map<String, Boolean> deleteAllStudents(){
         this.studentRepository.deleteAll();
         Map<String, Boolean> response=new HashMap<>();

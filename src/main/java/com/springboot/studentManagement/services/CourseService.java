@@ -1,8 +1,6 @@
 package com.springboot.studentManagement.services;
 
-import com.springboot.studentManagement.dto.CourseDTO;
-import com.springboot.studentManagement.dto.CourseStudentsDTO;
-import com.springboot.studentManagement.dto.StudentDTO;
+import com.springboot.studentManagement.dto.*;
 import com.springboot.studentManagement.mapper.CourseMapper;
 import com.springboot.studentManagement.model.student;
 import org.mapstruct.Mapping;
@@ -11,9 +9,9 @@ import com.springboot.studentManagement.model.course;
 import org.springframework.stereotype.Service;
 import com.springboot.studentManagement.exceptions.resourceNotFoundException;
 import com.springboot.studentManagement.repository.courseRepository;
-import com.springboot.studentManagement.dto.UpdateCourseDTO;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +33,12 @@ public class CourseService {
 
     public CourseStudentsDTO getStudentsByCourse(Long id)throws resourceNotFoundException{
         return courseMapper.getStudentsByCourse(courseRepository.findById(id).orElseThrow(()->new resourceNotFoundException(id)));
+    }
+
+    public Set<CreateCourseDTO> createCourseDTOS(Set<CreateCourseDTO> createCourseDTOS){
+        Set<course> courses=courseMapper.createDTOToEntity(createCourseDTOS);
+        courseRepository.saveAll(courses);
+        return courseMapper.createEntityToDTO(courses);
     }
 
     public CourseDTO updateCourse(Long id, UpdateCourseDTO updateCourseDTO)throws resourceNotFoundException{
