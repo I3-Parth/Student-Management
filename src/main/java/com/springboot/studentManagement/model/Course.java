@@ -1,5 +1,6 @@
 package com.springboot.studentManagement.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,6 @@ public class Course {
     private double fees;
 //    @Column(name = "Students")
     @ManyToMany( fetch = FetchType.LAZY,  mappedBy = "courses")
-    // @JsonBackReference
+    @JsonBackReference
     private Set<Student> Students;
 }

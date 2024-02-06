@@ -38,10 +38,10 @@ public class CourseController {
     }
 
     // Get Courses by fees
-    @GetMapping("/find/{fees}")
-    public List<Course> getCoursesByFees(@PathVariable double fees){
-        return courseRepository.findByFeesLessThan(fees);
-    }
+//    @GetMapping("/find/{fees}")
+//    public List<Course> getCoursesByFees(@PathVariable double fees){
+//        return courseRepository.findByFeesLessThan(fees);
+//    }
 
     // Create Courses
     @PostMapping
@@ -91,7 +91,7 @@ public class CourseController {
     public  Map<String, Boolean> deleteStudentFromCourse(@PathVariable(value = "cid")Long cid,@PathVariable(value = "sid")Long sid) throws ResourceNotFoundException {
         Course course=courseRepository.findById(cid).orElseThrow(()-> new ResourceNotFoundException(cid));
         Student student=studentRepository.findById(sid).orElseThrow(()-> new ResourceNotFoundException(sid));
-        student.getCours().remove(course);
+        student.getCourses().remove(course);
         course.getStudents().remove(student);
         studentRepository.save(student);
         courseRepository.save(course);

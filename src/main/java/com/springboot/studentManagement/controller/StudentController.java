@@ -38,10 +38,10 @@ public class StudentController {
     }
 
     // Get by Name
-    @GetMapping("/find/{name}")
-    public List<Student> findbyname(@PathVariable String name){
-        return studentRepository.findByNameContaining(name);
-    }
+//    @GetMapping("/find/{name}")
+//    public List<Student> findbyname(@PathVariable String name){
+//        return studentRepository.findByNameContaining(name);
+//    }
 
     // Create Student
     @PostMapping
@@ -60,7 +60,7 @@ public class StudentController {
     public ResponseEntity<Student> assignStudentToCourse(@PathVariable(value = "sid")Long sid, @PathVariable(value = "cid")Long cid)throws ResourceNotFoundException {
         Course course=courseRepository.findById(cid).orElseThrow(()-> new ResourceNotFoundException(cid));
         Student student=studentRepository.findById(sid).orElseThrow(()-> new ResourceNotFoundException(sid));
-        student.getCours().add(course);
+        student.getCourses().add(course);
         course.getStudents().add(student);
         courseRepository.save(course);
         return ResponseEntity.ok(this.studentRepository.save(student));
@@ -71,9 +71,10 @@ public class StudentController {
     @PutMapping("/{id}")
     public ResponseEntity<Student> updateStudent(@PathVariable(value = "id")Long studid, @Validated @RequestBody Student studentDetails)throws ResourceNotFoundException {
         Student student=studentRepository.findById(studid).orElseThrow(()->new ResourceNotFoundException(studid));
-        student.setCours(studentDetails.getCours());
+        student.setCourses(studentDetails.getCourses());
         student.setDept(studentDetails.getDept());
-        student.setName(studentDetails.getName());
+        student.setFirstName(studentDetails.getFirstName());
+        student.setLastName(studentDetails.getLastName());
         student.setYear(studentDetails.getYear());
         return ResponseEntity.ok(this.studentRepository.save(student));
     }
