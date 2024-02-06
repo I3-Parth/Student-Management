@@ -1,7 +1,10 @@
 package com.springboot.studentManagement.controller;
 
-import com.springboot.studentManagement.dto.studentCoursesDTO;
-import com.springboot.studentManagement.service.courseService;
+
+import com.springboot.studentManagement.dto.CourseStudentsDTO;
+import com.springboot.studentManagement.dto.StudentCoursesDTO;
+import com.springboot.studentManagement.services.CourseService;
+import com.springboot.studentManagement.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,25 +21,24 @@ import com.springboot.studentManagement.exceptions.resourceNotFoundException;
 @RequestMapping("")
 public class studentCourseController {
     @Autowired
-    courseRepository courseRepository;
-
-    @Autowired
     studentRepository studentRepository;
 
     @Autowired
-    courseService courseService;
+    CourseRepository courseRepository;
 
     @Autowired
-    studentService studentService;
+    StudentService studentService;
 
-    @GetMapping("students/{studentId}/courses")
-    public studentCoursesDTO getStudentCourses(@PathVariable(value = "studentId")Long studId)throws resourceNotFoundException{
-        return studentService.getStudentCourses(studId);
+    @Autowired
+    CourseService courseService;
+
+    @GetMapping("/students/{studentId}/courses")
+    public StudentCoursesDTO getStudentCourses(@PathVariable(value = "studentId")Long studId)throws resourceNotFoundException{
+        return studentService.getCoursesByStudents(studId);
     }
 
-    @GetMapping("courses/{courseId}/students")
-    public courseStudentsDTO getCourseStudents(@PathVariable(value = "courseId")Long courId)throws resourceNotFoundException{
-        return courseService.getCourseStudents(courId);
+    @GetMapping("/courses/{courseId}/students")
+    public CourseStudentsDTO getCourseStudents(@PathVariable(value = "courseId")Long courID)throws resourceNotFoundException{
+        return courseService.getStudentsByCourse(courID);
     }
-
 }
