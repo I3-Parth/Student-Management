@@ -4,8 +4,10 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @OpenAPIDefinition(
@@ -25,6 +27,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 		)
 )
 public class StudentManagementApplication {
+
+	@Bean
+	public ModelMapper modelMapper(){
+		return new ModelMapper();
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(StudentManagementApplication.class, args);

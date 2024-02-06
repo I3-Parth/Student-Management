@@ -25,18 +25,32 @@ public class StudentController {
     @Autowired
     CourseRepository courseRepository;
 
+    @Autowired
+    studentService studentService;
+
     // Get All Students
+    //    @GetMapping
+    //    public List<student> getAllStudents(){
+    //        return this.studentRepository.findAll();
+    //    }
+
     @GetMapping
-    public List<Student> getAllStudents(){
-        return this.studentRepository.findAll();
+    public List<studentDTO> getStudents(){
+        return studentService.getAllStudents();
     }
 
     // Get Student by ID
+    //    @GetMapping("/{id}")
+    //    public ResponseEntity<student> getById(@PathVariable(value = "id")Long studid) throws resourceNotFoundException {
+    //        student student=studentRepository.findById(studid).orElseThrow(()->new resourceNotFoundException(studid));
+    //        return ResponseEntity.ok().body(student);
+    //    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Student> getById(@PathVariable(value = "id")Long studid) throws ResourceNotFoundException {
-        Student student=studentRepository.findById(studid).orElseThrow(()->new ResourceNotFoundException(studid));
-        return ResponseEntity.ok().body(student);
+    public studentDTO getStudentById(@PathVariable(value = "id")Long studId)throws resourceNotFoundException{
+        return  studentService.getStudentById(studId);
     }
+
 
     // Get by Name
 //    @GetMapping("/find/{name}")

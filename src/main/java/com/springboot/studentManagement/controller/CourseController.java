@@ -25,17 +25,31 @@ public class CourseController {
     @Autowired
     StudentRepository studentRepository;
 
+    @Autowired
+    courseService courseService;
+
     // Get All Courses
+    //    @GetMapping
+    //    public List<course> getAllSCourses(){
+    //        return this.courseRepository.findAll();
+    //    }
+
     @GetMapping
-    public List<Course> getAllSCourses(){
-        return this.courseRepository.findAll();
+    public List<courseDTO> getAllCourses(){
+        return courseService.getAllCourses();
     }
 
+
     // Get Courses by ID
+    //    @GetMapping("/{id}")
+    //    public ResponseEntity<course> getById(@PathVariable(value = "id")Long courid) throws resourceNotFoundException {
+    //        course course=courseRepository.findById(courid).orElseThrow(()->new resourceNotFoundException(courid));
+    //        return ResponseEntity.ok().body(course);
+    //    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Course> getById(@PathVariable(value = "id")Long courid) throws ResourceNotFoundException {
-        Course course=courseRepository.findById(courid).orElseThrow(()->new ResourceNotFoundException(courid));
-        return ResponseEntity.ok().body(course);
+    public courseDTO getCourseById(@PathVariable(value = "id")Long cId)throws resourceNotFoundException{
+        return courseService.getCourseById(cId);
     }
 
     // Get Courses by fees
@@ -88,10 +102,10 @@ public class CourseController {
     }
 
     //Delete student from a course
-    @DeleteMapping("/{cid}/student/{sid}")
-    public  Map<String, Boolean> deleteStudentFromCourse(@PathVariable(value = "cid")Long cid,@PathVariable(value = "sid")Long sid) throws ResourceNotFoundException {
-        Course course=courseRepository.findById(cid).orElseThrow(()-> new ResourceNotFoundException(cid));
-        Student student=studentRepository.findById(sid).orElseThrow(()-> new ResourceNotFoundException(sid));
+    @DeleteMapping("/{courseId}/student/{studentId}")
+    public  Map<String, Boolean> deleteStudentFromCourse(@PathVariable(value = "courseId")Long cid,@PathVariable(value = "studentId")Long sid) throws resourceNotFoundException{
+        Course course=courseRepository.findById(cid).orElseThrow(()-> new resourceNotFoundException(cid));
+        Student student=studentRepository.findById(sid).orElseThrow(()-> new resourceNotFoundException(sid));
         student.getCourses().remove(course);
         course.getStudents().remove(student);
         studentRepository.save(student);
@@ -102,10 +116,10 @@ public class CourseController {
     }
 
     // Get all students by course id
-    @GetMapping("/{id}/students")
-    public ResponseEntity<Set<Student>> getStudentsByCourseId(@PathVariable(value = "id")Long courid)throws ResourceNotFoundException {
-        Course course=courseRepository.findById(courid).orElseThrow(()->new ResourceNotFoundException(courid));
-        Set<Student> Students =course.getStudents();
-        return ResponseEntity.ok(Students);
-    }
+    //    @GetMapping("/{id}/students")
+    //    public ResponseEntity<Set<student>> getStudentsByCourseId(@PathVariable(value = "id")Long courid)throws resourceNotFoundException{
+    //        course course=courseRepository.findById(courid).orElseThrow(()->new resourceNotFoundException(courid));
+    //        Set<student> students=course.getStudents();
+    //        return ResponseEntity.ok(students);
+    //    }
 }
