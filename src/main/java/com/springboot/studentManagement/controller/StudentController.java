@@ -1,20 +1,17 @@
 package com.springboot.studentManagement.controller;
 
-import com.springboot.studentManagement.dto.CreateCourseDTO;
 import com.springboot.studentManagement.dto.CreateStudentDTO;
 import com.springboot.studentManagement.dto.StudentDTO;
 import com.springboot.studentManagement.dto.UpdateStudentDTO;
-import com.springboot.studentManagement.model.course;
 import com.springboot.studentManagement.services.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.springboot.studentManagement.repository.studentRepository;
 import com.springboot.studentManagement.repository.courseRepository;
-import com.springboot.studentManagement.model.student;
-import com.springboot.studentManagement.exceptions.resourceNotFoundException;
+import com.springboot.studentManagement.model.Student;
+import com.springboot.studentManagement.exceptions.ResourceNotFoundException;
 
 
 import java.util.HashMap;
@@ -24,7 +21,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/students")
-public class studentController {
+public class StudentController {
     @Autowired
     studentRepository studentRepository;
 
@@ -41,7 +38,7 @@ public class studentController {
 
     // Get Student by ID
     @GetMapping("/{id}")
-    public StudentDTO getById(@PathVariable(value = "id")Long studid) throws resourceNotFoundException {
+    public StudentDTO getById(@PathVariable(value = "id")Long studid) throws ResourceNotFoundException {
         return studentService.getStudentById(studid);
     }
 
@@ -78,14 +75,14 @@ public class studentController {
 
     // Update Student
     @PutMapping("/{id}")
-    public StudentDTO updateStudent(@PathVariable(value = "id")Long studid, @Validated @RequestBody UpdateStudentDTO studentDetails)throws resourceNotFoundException {
+    public StudentDTO updateStudent(@PathVariable(value = "id")Long studid, @Validated @RequestBody UpdateStudentDTO studentDetails)throws ResourceNotFoundException {
         return studentService.updateStudent(studid, studentDetails);
     }
 
     // Delete by ID
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> deleteStudent(@PathVariable(value = "id") Long studid)throws resourceNotFoundException {
-        student student=studentRepository.findById(studid).orElseThrow(()->new resourceNotFoundException(studid));
+    public Map<String, Boolean> deleteStudent(@PathVariable(value = "id") Long studid)throws ResourceNotFoundException {
+        Student student=studentRepository.findById(studid).orElseThrow(()->new ResourceNotFoundException(studid));
         this.studentRepository.delete(student);
         Map<String, Boolean> response=new HashMap<>();
         response.put("Student with id "+studid+" is deleted successfully",Boolean.TRUE);

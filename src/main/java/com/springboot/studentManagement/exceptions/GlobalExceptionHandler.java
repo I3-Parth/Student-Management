@@ -9,10 +9,10 @@ import org.springframework.web.context.request.WebRequest;
 import java.util.Date;
 
 @ControllerAdvice
-public class globalExceptionHandler {
-    @ExceptionHandler(resourceNotFoundException.class)
-    public ResponseEntity<?> studentNOtFoundException(resourceNotFoundException ex, WebRequest request){
-        errorDetails errorDetails=new errorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+public class GlobalExceptionHandler {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<?> studentNOtFoundException(ResourceNotFoundException ex, WebRequest request){
+        ErrorDetails errorDetails=new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 }

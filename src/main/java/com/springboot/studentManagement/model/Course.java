@@ -17,7 +17,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class course {
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "course_seq")
     @SequenceGenerator(name = "course_seq", sequenceName = "course_tbl_seq", allocationSize = 1)
@@ -38,5 +38,5 @@ public class course {
 //    @Column(name = "Students")
     @ManyToMany( fetch = FetchType.LAZY,  mappedBy = "courses")
     @JsonBackReference
-    private Set<student> students;
+    private Set<Student> students;
 }

@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.springboot.studentManagement.repository.studentRepository;
 import com.springboot.studentManagement.repository.courseRepository;
-import com.springboot.studentManagement.model.student;
-import com.springboot.studentManagement.model.course;
-import com.springboot.studentManagement.exceptions.resourceNotFoundException;
+import com.springboot.studentManagement.exceptions.ResourceNotFoundException;
 
 @RestController
 @RequestMapping("")
-public class studentCourseController {
+public class StudentCourseController {
     @Autowired
     studentRepository studentRepository;
 
@@ -31,12 +29,12 @@ public class studentCourseController {
     CourseService courseService;
 
     @GetMapping("/students/{studentId}/courses")
-    public StudentCoursesDTO getStudentCourses(@PathVariable(value = "studentId")Long studId)throws resourceNotFoundException{
+    public StudentCoursesDTO getStudentCourses(@PathVariable(value = "studentId")Long studId)throws ResourceNotFoundException {
         return studentService.getCoursesByStudents(studId);
     }
 
     @GetMapping("/courses/{courseId}/students")
-    public CourseStudentsDTO getCourseStudents(@PathVariable(value = "courseId")Long courID)throws resourceNotFoundException{
+    public CourseStudentsDTO getCourseStudents(@PathVariable(value = "courseId")Long courID)throws ResourceNotFoundException {
         return courseService.getStudentsByCourse(courID);
     }
 }

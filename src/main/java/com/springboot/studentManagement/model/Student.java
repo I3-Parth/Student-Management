@@ -1,6 +1,5 @@
 package com.springboot.studentManagement.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class student {
+public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq")
     @SequenceGenerator(name = "student_seq", sequenceName = "student_tbl_seq", allocationSize = 1)
@@ -41,6 +40,6 @@ public class student {
                 @JoinColumn(name = "courseId",referencedColumnName = "id")
         })
 //    @JsonManagedReference
-    private Set<course> courses;
+    private Set<Course> courses;
 
 }
