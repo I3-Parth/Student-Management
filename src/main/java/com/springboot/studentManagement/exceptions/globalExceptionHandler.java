@@ -15,4 +15,10 @@ public class globalExceptionHandler {
         errorDetails errorDetails=new errorDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(InvalidAddressException.class)
+    public ResponseEntity<?> invalidAddress(InvalidAddressException ex, WebRequest request){
+        errorDetails errorDetails = new errorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
+    }
 }

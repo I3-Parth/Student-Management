@@ -1,11 +1,10 @@
 package com.springboot.studentManagement.controller;
 
-import com.springboot.studentManagement.dto.CreateCourseDTO;
-import com.springboot.studentManagement.dto.CreateStudentDTO;
-import com.springboot.studentManagement.dto.StudentDTO;
-import com.springboot.studentManagement.dto.UpdateStudentDTO;
+import com.springboot.studentManagement.dto.*;
+import com.springboot.studentManagement.exceptions.InvalidAddressException;
 import com.springboot.studentManagement.model.course;
 import com.springboot.studentManagement.services.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -62,6 +61,11 @@ public class studentController {
         return studentService.createStudentDTOS(createStudentDTOS);
     }
 
+    @PostMapping("/{id}")
+    public ShowStudentAddressesDTO alterWholeStudent(@PathVariable(value = "id")Long studentId,@Valid @RequestBody UpdateStudentDTO updateStudentDTO)throws resourceNotFoundException, InvalidAddressException{
+        return studentService.updateWholeStudent(studentId,updateStudentDTO);
+    }
+
     // Assign Student to a course
 //    @PutMapping("/{sid}/course/{cid}")
 //    public ResponseEntity<student> assignStudentToCourse(@PathVariable(value = "sid")Long sid, @PathVariable(value = "cid")Long cid)throws resourceNotFoundException{
@@ -74,11 +78,18 @@ public class studentController {
 //    }
 
 
-    // Update Student
+//     Update Student
     @PutMapping("/{id}")
     public StudentDTO updateStudent(@PathVariable(value = "id")Long studid, @Validated @RequestBody UpdateStudentDTO studentDetails)throws resourceNotFoundException {
         return studentService.updateStudent(studid, studentDetails);
     }
+
+
+    //Add-Update Student Address
+//    @PutMapping("/{id}")
+//    public ShowStudentAddressesDTO updateStudentWithAddresses(@PathVariable(value = "id")Long studentId, @Validated @RequestBody List<CreateStudentAddressesDTO> createStudentAddressesDTOS)throws resourceNotFoundException, InvalidAddressException {
+//        return studentService.updateStudentAddresses(studentId,createStudentAddressesDTOS);
+//    }
 
     // Delete by ID
     @DeleteMapping("/{id}")
