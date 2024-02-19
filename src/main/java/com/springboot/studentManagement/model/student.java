@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -40,4 +41,7 @@ public class student {
 //    @JsonManagedReference
     private Set<course> courses;
 
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id")
+    private List<Address> addresses;
 }

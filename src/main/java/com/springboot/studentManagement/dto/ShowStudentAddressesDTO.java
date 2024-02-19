@@ -1,15 +1,15 @@
 package com.springboot.studentManagement.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class UpdateStudentDTO {
+public class ShowStudentAddressesDTO {
+    private Long id;
     private String fullName;
+    private String firstName;
+    private String lastName;
     private String dept;
     private String year;
     private List<AddressesDTO> addresses;

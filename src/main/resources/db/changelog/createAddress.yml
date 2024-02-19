@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: Create Address Table
+      author: Parth
+
+      changes:
+        - createTable:
+            tableName: Addresses
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: Locality
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: Landmark
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: City
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: student_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+            primaryKey:
+              columns:
+                - column:
+                    name: id
+            foreignKeyConstraints:
+              - foreignKeyConstraint:
+                  name: fk_student_id
+                  baseTableName: Addresses
+                  baseColumnNames: student_id
+                  referencedTableName: Student
+                  referencedColumnNames: id
+
+  - changeSet:
+      id: addressSequence
+      author: Parth
+      changes:
+        - createSequence:
+            sequenceName: addressSequenceTable
+            startValue: 1
+            incrementBy: 1
